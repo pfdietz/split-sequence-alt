@@ -177,7 +177,8 @@ stopped.")
                 split-from-start split-from-end))
 
 (defun split-from-end (position-fn sequence start end count remove-empty-subseqs)
-  (declare (optimize (speed 3) (debug 0)))
+  (declare (optimize (speed 3) (debug 0))
+           (type (function (sequence fixnum) (or null fixnum)) position-fn))
   (loop
     :for right := end :then left
     :for left := (max (or (funcall position-fn sequence right) -1)
@@ -189,12 +190,13 @@ stopped.")
         :return (values (nreverse subseqs) right)
     :else
       :collect (subseq sequence (1+ left) right) into subseqs
-      :and :sum 1 :into nr-elts
+      :and :sum 1 :into nr-elts :of-type fixnum
     :until (< left start)
     :finally (return (values (nreverse subseqs) (1+ left)))))
 
 (defun split-from-start (position-fn sequence start end count remove-empty-subseqs)
-  (declare (optimize (speed 3) (debug 0)))
+  (declare (optimize (speed 3) (debug 0))
+           (type (function (sequence fixnum) (or null fixnum)) position-fn))
   (let ((length (length sequence)))
     (loop
       :for left := start :then (1+ right)
@@ -207,7 +209,7 @@ stopped.")
           :return (values subseqs left)
       :else
         :collect (subseq sequence left right) :into subseqs
-        :and :sum 1 :into nr-elts
+        :and :sum 1 :into nr-elts :of-type fixnum
       :until (>= right end)
       :finally (return (values subseqs right)))))
 
