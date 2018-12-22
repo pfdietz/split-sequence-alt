@@ -11,7 +11,7 @@
                (:file "package")
                (:file "vector")
                (:file "list")
-               #+sbcl (:file "extended-sequence")
+               #+(or sbcl abcl) (:file "extended-sequence")
                (:file "api")))
 
 (defsystem :split-sequence/tests

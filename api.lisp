@@ -24,7 +24,7 @@
                                remove-empty-subseqs test test-not key))
     (vector (vector-split-sequence delimiter sequence start end from-end count
                                    remove-empty-subseqs test test-not key))
-    #+sbcl
+    #+(or sbcl abcl)
     (extended-sequence (extended-split-sequence delimiter sequence start end from-end count
                                                 remove-empty-subseqs test test-not key))))
 
@@ -36,7 +36,7 @@
                                   remove-empty-subseqs key))
     (vector (vector-split-sequence-if predicate sequence start end from-end count
                                       remove-empty-subseqs key))
-    #+sbcl
+    #+(or sbcl abcl)
     (extended-sequence (extended-split-sequence-if predicate sequence start end from-end count
                                                    remove-empty-subseqs key))))
 
@@ -48,7 +48,7 @@
                                       remove-empty-subseqs key))
     (vector (vector-split-sequence-if-not predicate sequence start end from-end count
                                           remove-empty-subseqs key))
-    #+sbcl
+    #+(or sbcl abcl)
     (extended-sequence (extended-split-sequence-if-not predicate sequence start end from-end count
                                                        remove-empty-subseqs key))))
 
