@@ -2,7 +2,9 @@
 
 (in-package :split-sequence)
 
-(declaim (inline split-list split-list-if split-list-if-not))
+(declaim (#-split-sequence/cover inline
+          #+split-sequence/cover notinline
+          split-list split-list-if split-list-if-not))
 
 (declaim (ftype (function (&rest t) (values list integer))
                 split-list split-list-if split-list-if-not))
@@ -10,6 +12,8 @@
 (declaim (ftype (function (function list integer (or null integer) (or null integer) boolean function)
                           (values list integer))
                 split-list-from-start split-list-from-end split-list-internal))
+
+#+split-sequence/cover(cover:annotate t)
 
 (defun split-list
     (delimiter list start end from-end count remove-empty-subseqs test test-not key)
@@ -76,3 +80,5 @@
              (unless current-first
                (setf current-first next-cons))
              (setf next-cons (cdr next-cons)))))))
+
+#+split-sequence/cover (cover:annotate nil)

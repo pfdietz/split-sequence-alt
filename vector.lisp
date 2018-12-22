@@ -2,7 +2,9 @@
 
 (in-package :split-sequence)
 
-(declaim (inline split-vector split-vector-if split-vector-if-not))
+(declaim (#-split-sequence/cover inline
+          #+split-sequence/cover notinline
+          split-vector split-vector-if split-vector-if-not))
 
 (deftype array-index (&optional (length array-dimension-limit))
   `(integer 0 (,length)))
@@ -14,6 +16,8 @@
                                     (or null array-index) (or null array-index) boolean)
                           (values list integer))
                 split-vector-from-start split-vector-from-end))
+
+#+split-sequence/cover (cover:annotate t)
 
 (defun split-vector
     (delimiter vector start end from-end count remove-empty-subseqs test test-not key)
@@ -92,3 +96,5 @@
         :and :sum 1 :into nr-elts :of-type fixnum
       :until (>= right end)
       :finally (return (values subseqs right)))))
+
+#+split-sequence/cover (cover:annotate nil)

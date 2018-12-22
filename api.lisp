@@ -12,6 +12,8 @@
        (unless (<= ,start ,end ,length)
          (error "Wrong sequence bounds. start: ~S end: ~S" ,start ,end)))))
 
+#+split-sequence/cover(cover:annotate t)
+
 (defun check-tests (test test-not)
   (when (and test test-not)
     (error "Cannot specify both TEST and TEST-NOT.")))
@@ -94,3 +96,5 @@ argument to CL:SUBSEQ into the sequence indicating where processing
 stopped.")
 
 (pushnew :split-sequence *features*)
+
+#+split-sequence/cover(cover:annotate nil)

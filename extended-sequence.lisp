@@ -9,7 +9,9 @@
 (deftype extended-sequence ()
   '(and sequence (not list) (not vector)))
 
-(declaim (inline split-extended-sequence split-extended-sequence-if split-extended-sequence-if-not))
+(declaim (#+split-sequence/cover notinline
+          #-split-sequence/cover inline
+          split-extended-sequence split-extended-sequence-if split-extended-sequence-if-not))
 
 (declaim (ftype (function (&rest t) (values list integer))
                 split-extended-sequence split-extended-sequence-if split-extended-sequence-if-not))
@@ -18,6 +20,8 @@
                                     (or null fixnum) (or null fixnum) boolean)
                           (values list fixnum))
                 split-extended-sequence-from-start split-extended-sequence-from-end))
+
+#+split-sequence/cover (cover:annotate t)
 
 (defun split-extended-sequence
     (delimiter sequence start end from-end count remove-empty-subseqs test test-not key)
@@ -95,3 +99,5 @@
         :and :sum 1 :into nr-elts :of-type fixnum
       :until (>= right end)
       :finally (return (values subseqs right)))))
+
+#+split-sequence/cover (cover:annotate nil)
