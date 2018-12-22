@@ -64,6 +64,12 @@
   (is (equalp (split-sequence #\; input :start 1 :end 9)
               (values output index))))
 
+(define-test split-sequence.6 (:input (input "abracadabra")
+                               :output (output ("" "br" "c" "d" "br" ""))
+                               :index (index 11))
+  (is (equalp (split-sequence #\A input :key #'char-upcase)
+              (values output index))))
+
 (define-test split-sequence-if.1 (:input (input "abracadabra")
                                   :output (output ("" "" "r" "c" "d" "" "r" ""))
                                   :index (index 11))
