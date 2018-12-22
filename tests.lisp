@@ -34,6 +34,12 @@
                (,index-symbol ,index-value))
            ,@forms)))))
 
+(define-test split-sequence.0 (:input (input "")
+                               :output (output (""))
+                               :index (index 0))
+  (is (equalp (split-sequence #\; input)
+              (values output index))))
+
 (define-test split-sequence.1 (:input (input "a;;b;c")
                                :output (output ("a" "" "b" "c"))
                                :index (index 6))
