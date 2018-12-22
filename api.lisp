@@ -26,36 +26,36 @@
   (check-bounds sequence start end)
   (check-tests test-p test-not-p)
   (etypecase sequence
-    (list (list-split-sequence delimiter sequence start end from-end count
-                               remove-empty-subseqs test test-not key))
-    (vector (vector-split-sequence delimiter sequence start end from-end count
-                                   remove-empty-subseqs test test-not key))
+    (list (split-list delimiter sequence start end from-end count
+                      remove-empty-subseqs test test-not key))
+    (vector (split-vector delimiter sequence start end from-end count
+                          remove-empty-subseqs test test-not key))
     #+(or sbcl abcl)
-    (extended-sequence (extended-split-sequence delimiter sequence start end from-end count
+    (extended-sequence (split-extended-sequence delimiter sequence start end from-end count
                                                 remove-empty-subseqs test test-not key))))
 
 (defun split-sequence-if (predicate sequence &key (start 0) (end nil) (from-end nil)
                                                (count nil) (remove-empty-subseqs nil) (key #'identity))
   (check-bounds sequence start end)
   (etypecase sequence
-    (list (list-split-sequence-if predicate sequence start end from-end count
-                                  remove-empty-subseqs key))
-    (vector (vector-split-sequence-if predicate sequence start end from-end count
-                                      remove-empty-subseqs key))
+    (list (split-list-if predicate sequence start end from-end count
+                         remove-empty-subseqs key))
+    (vector (split-vector-if predicate sequence start end from-end count
+                             remove-empty-subseqs key))
     #+(or sbcl abcl)
-    (extended-sequence (extended-split-sequence-if predicate sequence start end from-end count
+    (extended-sequence (split-extended-sequence-if predicate sequence start end from-end count
                                                    remove-empty-subseqs key))))
 
 (defun split-sequence-if-not (predicate sequence &key (start 0) (end nil) (from-end nil)
                                                    (count nil) (remove-empty-subseqs nil) (key #'identity))
   (check-bounds sequence start end)
   (etypecase sequence
-    (list (list-split-sequence-if-not predicate sequence start end from-end count
-                                      remove-empty-subseqs key))
-    (vector (vector-split-sequence-if-not predicate sequence start end from-end count
-                                          remove-empty-subseqs key))
+    (list (split-list-if-not predicate sequence start end from-end count
+                             remove-empty-subseqs key))
+    (vector (split-vector-if-not predicate sequence start end from-end count
+                                 remove-empty-subseqs key))
     #+(or sbcl abcl)
-    (extended-sequence (extended-split-sequence-if-not predicate sequence start end from-end count
+    (extended-sequence (split-extended-sequence-if-not predicate sequence start end from-end count
                                                        remove-empty-subseqs key))))
 
 (pushnew :split-sequence *features*)
