@@ -12,13 +12,19 @@
        (unless (<= ,start ,end ,length)
          (error "Wrong sequence bounds. start: ~S end: ~S" ,start ,end)))))
 
+(defun check-tests (test test-not)
+  (when (and test test-not)
+    (error "Cannot specify both TEST and TEST-NOT.")))
+
 (declaim (ftype (function (&rest t) (values list integer))
                 split-sequence split-sequence-if split-sequence-if-not))
 
 (defun split-sequence (delimiter sequence &key (start 0) (end nil) (from-end nil)
                                             (count nil) (remove-empty-subseqs nil)
-                                            (test #'eql) (test-not nil) (key #'identity))
+                                            (test #'eql test-p) (test-not nil test-not-p)
+                                            (key #'identity))
   (check-bounds sequence start end)
+  (check-tests test-p test-not-p)
   (etypecase sequence
     (list (list-split-sequence delimiter sequence start end from-end count
                                remove-empty-subseqs test test-not key))
