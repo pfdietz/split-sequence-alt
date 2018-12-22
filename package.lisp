@@ -25,9 +25,10 @@
 ;;; portion of the sequence; this index is the `right' one to feed to
 ;;; CL:SUBSEQ for continued processing.
 
-;;; There's a certain amount of code duplication here, which is kept
-;;; to illustrate the relationship between the SPLIT-SEQUENCE
-;;; functions and the CL:POSITION functions.
+;;; There's a certain amount of code duplication in the vector and
+;;; extended sequence modules, which is kept to illustrate the
+;;; relationship between the SPLIT-SEQUENCE functions and the
+;;; CL:POSITION functions.
 
 (defpackage #:split-sequence
   (:use #:common-lisp)
