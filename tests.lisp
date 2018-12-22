@@ -8,6 +8,9 @@
 (in-suite* :split-sequence)
 
 (defmacro define-test (name (&key input output index) &body forms)
+  ;; This macro automatically generates test code for testing vector and list input.
+  ;; Vector input and output is automatically coerced into list form for the list tests.
+  ;; (DEFINE-TEST FOO ...) generates FIVEAM tests FOO.VECTOR and FOO.LIST.
   (check-type name symbol)
   (check-type input (cons symbol (cons vector null)))
   (check-type output (cons symbol (cons list null)))
