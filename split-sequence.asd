@@ -8,7 +8,11 @@
   :license "MIT"
   :version (:read-file-form "version.sexp")
   :components ((:static-file "version.sexp")
-               (:file "split-sequence")))
+               (:file "package")
+               (:file "vector")
+               (:file "list")
+               #+sbcl (:file "extended-sequence")
+               (:file "api")))
 
 (defsystem :split-sequence/tests
   :author "Arthur Lemmens <alemmens@xs4all.nl>"
