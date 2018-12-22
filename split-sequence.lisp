@@ -155,7 +155,7 @@ stopped."
   (declare (optimize (speed 3) (debug 0)))
   (let ((length (length sequence)))
     (loop
-       :for left := start :then (+ right 1)
+       :for left := start :then (1+ right)
        :for right := (min (or (funcall position-fn sequence left) length)
                           end)
        :unless (and (= right left)
